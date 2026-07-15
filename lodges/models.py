@@ -8,8 +8,8 @@ from django.db.models import Q
 # Create your models here.
 
 class LodgeManager(models.Manager):
-    def get_active_lodge(self):
-        return self.get_queryset().filter(active = True, status='')
+    def get_showing_lodge(self):
+        return self.get_queryset().filter(active = True, status='confirmed')
     
 #     def search_lodge(self,query):
 #         lookup = Q(title__icontains=query) | Q(description__icontains=query)
@@ -37,7 +37,7 @@ class Lodge(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, default='pending')
     
 
-    # objects= LodgeManager()
+    objects= LodgeManager()
 
     class Meta:
         verbose_name= 'اقامتگاه'
@@ -70,10 +70,7 @@ def create_slug(sender, instance, *args, **kwargs):
 
 
 
-
-
-
 class LodgeImage(models.Model):
-    lodge= models.ForeignKey(Lodge, on_delete=models.CASCADE)
-    # image= models.ImageField(upload_to="/lodgeimages", null=True , blank=True)
+    lodge= models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
+    image= models.ImageField(upload_to="lodgeimages/", null=True , blank=True)
 

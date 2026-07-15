@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contents %}
+
+
+{% for lodge in lodges %}
+    <h1>{{ lodge.title }}</h1>
+{% endfor %}
+
+
+
+{% endblock %}
+

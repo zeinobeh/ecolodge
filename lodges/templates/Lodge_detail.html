@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<img src="{{ lodge.image.url }}" alt="{{ lodge.title }}" />
+<h1>{{ lodge.title }}</h1>
+<p>{{ lodge.description }}</p>
+<p>{{ lodge.address }}</p>
+
+{% endblock %}
