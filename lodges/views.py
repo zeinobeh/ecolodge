@@ -15,6 +15,7 @@ class LodgesListView(ListView):
         return Lodge.objects.get_showing_lodge()
 
 
+
 class LodgeDetail(DetailView):
     model = Lodge
     template_name = 'Lodge_detail.html'

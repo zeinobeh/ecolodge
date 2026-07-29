@@ -5,7 +5,16 @@
 
 
 {% for lodge in lodges %}
-    <h1>{{ lodge.title }}</h1>
+    <a href="{{ lodge.lodge_url }}">
+    <!-- <img src="{{ lodge.images.first.image.url }}" alt="{{ lodge.title }}" /> -->
+
+    <h2>{{ lodge.title }}</h2>
+    <h4>استان: {{ lodge.province }}</h4>
+    <h4>شهر: {{ lodge.city }}</h4>
+    <h4>ظرفیت: {{ lodge.capacity }}</h4>
+    <h4>قیمت هر شب: {{ lodge.price }}</h4>
+    </a>
+    
 {% endfor %}
 
 

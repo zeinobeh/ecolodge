@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_render_partial',
     'accounts',
     'lodges',
     'reservations',
@@ -64,6 +63,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -74,6 +74,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
+
+#
+#
+AUTH_USER_MODEL = 'accounts.User'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -125,12 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [BASE_DIR/ "assets"]
-
-STATIC_ROOT = BASE_DIR / "statics" / "static_main"
-
+STATICFILES_DIRS = [
+    BASE_DIR/"assets",
+]
+STATIC_ROOT = BASE_DIR/"statics"
 
 MEDIA_URL = 'media/'
-
-MEDIA_ROOT = BASE_DIR / "statics" / "media_root"
+MEDIA_ROOT = BASE_DIR/"media"

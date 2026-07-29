@@ -1,9 +1,12 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db.models import Q
+
+from django.conf import settings
 
 # Create your models here.
 
@@ -24,7 +27,7 @@ class Lodge(models.Model):
         ('canclled', 'رد شده'),
     ]
 
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='lodges')
     title = models.CharField(verbose_name='عنوان')
     slug= models.SlugField(blank=True, unique=True, allow_unicode=True)
     description = models.TextField()
@@ -33,6 +36,7 @@ class Lodge(models.Model):
     address = models.TextField()
     capacity = models.IntegerField()
     price = models.IntegerField()
+    interests = models.ManyToManyField("accounts.Interest" , blank=True)
     active = models.BooleanField(default=True)
     status = models.CharField(choices=STATUS_CHOICES, default='pending')
     
@@ -50,7 +54,7 @@ class Lodge(models.Model):
         super().save(*args, **kwargs)
 
     def lodge_url(self):
-        return f"/lodge/{self.slug}"
+        return f"/lodges/{self.slug}"
 
     def __str__(self):
         return self.title
@@ -73,4 +77,3 @@ def create_slug(sender, instance, *args, **kwargs):
 class LodgeImage(models.Model):
     lodge= models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
     image= models.ImageField(upload_to="lodgeimages/", null=True , blank=True)
-

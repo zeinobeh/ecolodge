@@ -26,7 +26,4 @@ class LodgeAdmin(admin.ModelAdmin):
 
 
 
-
-
-
 admin.site.register(Lodge, LodgeAdmin)

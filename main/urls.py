@@ -28,10 +28,8 @@ urlpatterns = [
     path('', home_page, name='home'),
     path('header', header, name='header'),
     path('footer', footer, name='footer'),
-    # path('login/', login_page, name='login'),
-    # path('register/', register_page, name='register'),
-    # path('logout', log_out, name='logout'),
-    path('lodges/',include("lodges.urls", namespace='lodges'))
+    path('accounts/',include("accounts.urls", namespace='accounts')),
+    path('lodges/',include("lodges.urls", namespace='lodges')),
 ]
 
 
