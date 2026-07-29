@@ -1,65 +1,39 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>{% block title %}سامانه رزرو اقامتگاه{% endblock %}</title>
 
-    <title>
-        {% block title %}
-            سامانه رزرو اقامتگاه
-        {% endblock %}
-    </title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
 
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}">
 
-    <!-- فونت -->
+    <!-- Fonts -->
     <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
 
-    <!-- CSS  -->
-    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base/variables.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base/typography.css' %}">
-
-    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
-
-    <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
-
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 </head>
-
 
 <body>
 
-
     {% include 'base/header.html' %}
 
-
     <main>
-
-        {% block contents %}
-
-        {% endblock %}
-
+        {% block content %}{% endblock %}
     </main>
-
 
     {% include 'base/footer.html' %}
 
-
-
-    <!-- JavaScript -->
-    <script src="{% static 'js/main.js' %}"></script>
-
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
-
 </html>

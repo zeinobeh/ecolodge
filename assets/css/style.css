@@ -1,0 +1,33 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Vazirmatn",sans-serif;
+    direction:rtl;
+    text-align:right;
+    background:#f8f9fa;
+    color:#333;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+/* main{
+    min-height:70vh;
+} */
