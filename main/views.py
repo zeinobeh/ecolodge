@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from lodges.models import Lodge
 
 
 def header(request):
@@ -12,7 +13,10 @@ def footer(request):
 
 
 def home_page(request):
+    lodges = Lodge.objects.get_showing_lodge()
+
     context={
+        'lodges' : lodges ,
         'message': 'welcome',
     }
     return render(request,'home_page.html',context)

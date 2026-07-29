@@ -1,0 +1,31 @@
+.navbar {
+    padding: 15px 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: .3s;
+}
+.navbar-brand:hover {
+    color: #198754;
+}
+
+.nav-link {
+    margin-inline-end: 12px;
+    font-weight: 500;
+    transition: .3s;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: #198754;
+}
+
+@media (max-width: 991.98px) {
+    .nav-link {
+        margin-inline-end: 0;
+        padding: 8px 0;
+    }
+}

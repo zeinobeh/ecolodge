@@ -3,10 +3,25 @@
 
 {% block content %}
 
-
 <p>{{ message }}</p>
 
+<section class="container py-5">
 
+    <h2 class="mb-4">
+        اقامتگاه‌های پیشنهادی
+    </h2>
+
+    <div class="row">
+
+        {% for lodge in lodges %}
+
+            {% include 'lodge_card.html' %}
+
+        {% endfor %}
+
+    </div>
+
+</section>
 
 {% endblock %}
 
