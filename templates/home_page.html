@@ -3,7 +3,28 @@
 
 {% block content %}
 
-<p>{{ message }}</p>
+
+<section class="hero" >
+
+    <div class="hero-content">
+
+        <h1>
+            تجربه اقامت در دل طبیعت
+        </h1>
+
+        <p>
+            بهترین اقامتگاه‌های بوم‌گردی را پیدا و رزرو کنید
+        </p>
+
+        <a href="{% url 'lodges:lodges_list_view' %}" class="hero-btn">
+            مشاهده اقامتگاه‌ها
+        </a>
+
+    </div>
+
+</section>
+
+
 
 <section class="container py-5">
 
@@ -11,17 +32,29 @@
         اقامتگاه‌های پیشنهادی
     </h2>
 
-    <div class="row">
+    <div class="row g-4">
 
-        {% for lodge in lodges %}
+    {% for lodge in page_obj %}
 
-            {% include 'lodge_card.html' %}
+        <div class="col-xl-3 col-lg-4 col-md-6 col-12 d-flex justify-content-center">
 
-        {% endfor %}
+            <div class="lodge-card-wrapper">
+                {% include 'lodge_card.html' %}
+            </div>
 
-    </div>
+        </div>
+
+    {% endfor %}
+
+</div>
 
 </section>
+
+<div class="row">
+
+    {% include 'component/pagination.html' %}  
+
+</div>
 
 {% endblock %}
 

@@ -9,7 +9,7 @@ from .models import Lodge
 class LodgesListView(ListView):
     template_name = 'lodges_list.html'
     context_object_name = "lodges"
-    paginate_by=5
+    paginate_by=12
 
     def get_queryset(self):
         return Lodge.objects.get_showing_lodge()

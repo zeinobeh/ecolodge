@@ -1,17 +1,40 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
+{% block title %}
+{{ block.super }} | اقامتگاه ها
+{% endblock %}
+
+
 {% block content %}
 
 
-    
+<section class="container py-5">
+
+    <div class="row g-4">
+
+        {% for lodge in lodges %}
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12 d-flex justify-content-center">
+
+                <div class="lodge-card-wrapper">
+
+                    {% include 'lodge_card.html' %}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section> 
+
+
 <div class="row">
 
-{% for lodge in lodges %}
-
-    {% include 'lodge_card.html' %}
-
-{% endfor %}
+    {% include 'component/pagination.html' %}  
 
 </div>
 

@@ -31,3 +31,74 @@ ul{
 /* main{
     min-height:70vh;
 } */
+
+
+/* hero  */
+
+.hero {
+
+    height: 500px;
+
+    background-image: url("../images/hero.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: white;
+
+}
+
+
+.hero-content {
+
+    background: rgba(0,0,0,0.4);
+
+    padding: 40px;
+
+    border-radius: 15px;
+
+}
+
+
+.hero h1 {
+
+    font-size: 45px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.hero p {
+
+    font-size: 20px;
+
+}
+
+
+.hero-btn {
+
+    display: inline-block;
+
+    margin-top: 25px;
+
+    padding: 12px 30px;
+
+    background: white;
+
+    color: black;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+}
