@@ -36,7 +36,7 @@ class Lodge(models.Model):
     address = models.TextField()
     capacity = models.IntegerField()
     price = models.IntegerField()
-    interests = models.ManyToManyField("accounts.Interest" , blank=True)
+    interests = models.ManyToManyField("accounts.Interests" , blank=True)
     active = models.BooleanField(default=True)
     status = models.CharField(choices=STATUS_CHOICES, default='pending')
     

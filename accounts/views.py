@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,  logout, get_user_model
-from .forms import LoginForm, RegisterForm
-
+from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm
+from .models import Profile, User
 
 def login_page(request):
     login_form= LoginForm(request.POST or None)
@@ -45,3 +45,44 @@ def register_page(request):
 def log_out(request):
     logout(request)
     return redirect('accounts:login')
+
+
+
+def profile_page(request):
+    if request.method == "POST":
+        profile_form = ProfileForm(
+            request.POST,
+            instance=request.user.profile
+        )
+
+        if profile_form.is_valid():
+            profile_form.save()
+
+    else:
+        profile_form = ProfileForm(
+            instance=request.user.profile
+        )
+
+    return render(request, "dashboard/profile.html", {
+        "profile_form": profile_form
+    })
+
+
+
+def interests_page(request):
+    if request.method == "POST":
+        interests_form = InterestsForm(
+            request.POST,
+            instance=request.user.profile
+        )
+
+        if interests_form.is_valid():
+            interests_form.save()
+
+    else:
+        interests_form = InterestsForm(
+            instance=request.user.profile
+        )
+    return render(request, "dashboard/interests.html", {
+        "interests_form": interests_form
+    })

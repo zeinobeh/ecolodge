@@ -28,7 +28,7 @@ urlpatterns = [
     path('', home_page, name='home'),
     path('header', header, name='header'),
     path('footer', footer, name='footer'),
-    path('accounts/',include("accounts.urls", namespace='accounts')),
+    path('',include("accounts.urls", namespace='accounts')),
     path('lodges/',include("lodges.urls", namespace='lodges')),
 ]
 

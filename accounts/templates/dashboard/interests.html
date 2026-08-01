@@ -1,0 +1,13 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+
+<div class="container">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ interests_form }}
+      <button >send</button>
+    </form>
+  </div>
+
+{% endblock %}

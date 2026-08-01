@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from .models import Profile,Interests
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -49,3 +50,30 @@ class RegisterForm(forms.Form):
         if query.exists():
             raise forms.ValidationError('Try another email')
         return email
+    
+
+
+
+class ProfileForm(forms.ModelForm):
+     
+     class Meta:
+        model = Profile
+        fields = [
+            'first_name',
+            'last_name',
+            'phone_number',
+            'owner',
+        ]
+
+
+class InterestsForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = [
+            'interests'
+        ]
+
+        widgets = {
+            'interests': forms.CheckboxSelectMultiple()
+        }
