@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,  logout, get_user_model
-from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm
+from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm, MyLodgesForm
 from .models import Profile, User
 
 def login_page(request):
@@ -11,7 +11,7 @@ def login_page(request):
         user = authenticate(request,username=username, password=password)
         if user is not None:
             login(request,user)
-            return redirect('/')
+            return redirect('accounts:dashboard')
         else:
             print('Error')
 
@@ -46,6 +46,12 @@ def log_out(request):
     logout(request)
     return redirect('accounts:login')
 
+
+def dashboard(request):
+    context = {
+        "welcome": "خوش آمدید",
+    }
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 def profile_page(request):
@@ -86,3 +92,26 @@ def interests_page(request):
     return render(request, "dashboard/interests.html", {
         "interests_form": interests_form
     })
+
+
+def my_lodges_page(request):
+    if request.method == "POST":
+        my_lodges_form = MyLodgesForm(
+            request.POST,
+            instance=request.user.profile
+        )
+
+        if my_lodges_form.is_valid():
+            my_lodges_form.save()
+
+    else:
+        my_lodges_form = MyLodgesForm(
+            instance=request.user.profile
+        )
+    context = {
+        "message": "اقامتگاه های من",
+        "my_lodges_form": my_lodges_form
+    }
+    return render(request, 'dashboard/my_lodges.html', context)
+
+

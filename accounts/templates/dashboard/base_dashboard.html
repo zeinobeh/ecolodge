@@ -7,6 +7,22 @@
 
     <aside class="col-lg-3">
         <!-- منو -->
+         <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:interests' %}">علاقه مندی ها</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">وضعیت رزروها</a>
+            </li>
+            {% if request.user.profile.owner == True %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:my_lodges' %}">اقامتگاه های من</a>
+            </li>
+            {% endif %}
+        </ul>
     </aside>
 
     <main class="col-lg-9">

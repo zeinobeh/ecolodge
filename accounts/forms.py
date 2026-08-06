@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Profile,Interests
+from .models import Profile
+from lodges.models import Lodge 
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -77,3 +79,22 @@ class InterestsForm(forms.ModelForm):
         widgets = {
             'interests': forms.CheckboxSelectMultiple()
         }
+
+
+
+class MyLodgesForm(forms.ModelForm):
+
+    class Meta:
+        model = Lodge
+        fields = [
+            'title',
+            'slug',
+            'description',
+            'province',
+            'city',
+            'address',
+            'capacity',
+            'price',
+            'interests',
+            'active',
+        ]
