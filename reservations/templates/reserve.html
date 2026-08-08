@@ -1,0 +1,15 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+
+<h1>{{ message }}</h1>
+
+<div class="container">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button >send</button>
+    </form>
+  </div>
+
+{% endblock %}

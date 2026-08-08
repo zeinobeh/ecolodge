@@ -1,3 +1,23 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.conf import settings
+from lodges.models import Lodge
 
 # Create your models here.
+
+class Reservation(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_reserve')
+    lodge = models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='lodge_reserve')
+    guest_count = models.PositiveIntegerField()
+    check_in = models.DateField()
+    check_out = models.DateField()
+    total_price = models.PositiveIntegerField()
+    status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def check_data(self):
+        if self.check_in > self.check_out :
+            raise ValidationError("تاریخ را درست وارد کنید")
+        if self.guest_count > self.lodge.capacity :
+            raise ValidationError("تعداد مهمان از ظرفیت اقامتگاه بیشتر است")

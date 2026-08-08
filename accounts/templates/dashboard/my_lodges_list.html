@@ -1,0 +1,39 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+
+<h1>{{ message }}</h1>
+
+<button>
+<a href="{% url 'accounts:create_lodge' %}">ثبت اقامتگاه جدید</a>
+</button>
+
+<div class="container">
+    <table>
+  <tr>
+    <th>نام اقامتگاه</th>
+    <th>فعال/غیرفعال</th>
+    <th>حالت</th>
+  </tr>
+
+    {% for lodge in lodges %} 
+    <tr>
+    <td>{{ lodge.title }}</td>
+    <td>{{ lodge.active }}</td>
+    <td>{{ lodge.status }}</td>
+    <td><a href="{% url 'accounts:edit_lodge' lodge.id %}">ویرایش</a></td>
+    <td><a href="{% url 'lodges:lodge_detail' lodge.slug %}">مشاهده</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</div>
+
+<div class="row">
+
+    {% include 'component/pagination.html' %}  
+
+</div>
+
+{% endblock %}

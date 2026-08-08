@@ -30,6 +30,7 @@ urlpatterns = [
     path('footer', footer, name='footer'),
     path('',include("accounts.urls", namespace='accounts')),
     path('lodges/',include("lodges.urls", namespace='lodges')),
+    path('',include("reservations.urls", namespace='reservations')),
 ]
 
 

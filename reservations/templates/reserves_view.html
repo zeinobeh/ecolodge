@@ -1,0 +1,41 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+
+
+
+<div>
+    <table>
+        <tr>
+            <th>نام اقامتگاه</th>
+            <th>تاریخ ورود</th>
+            <th>تاریخ خروج</th>
+            <th>تعداد</th>
+            <th>جمع هزینه</th>
+            <th>وضعیت رزرو</th>
+            <th>لغو</th>
+        </tr>
+    {% for reserve in reserves %}
+        <tr>
+            <th>{{ reserve.lodge }}</th>
+            <th> {{ reserve.check_in }}</th>
+            <th> {{ reserve.check_out }}</th>
+            <th> {{ reserve.guest_count }}</th>
+            <th> {{ reserve.total_price }}</th>
+            <th> {{ reserve.status }}</th>
+            
+            <!-- دکمه برای لغو کردن -->
+            <button ></button>          
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+
+
+<div class="row">
+
+    {% include 'component/pagination.html' %}  
+
+</div>
+
+{% endblock %}

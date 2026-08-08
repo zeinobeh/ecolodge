@@ -19,7 +19,7 @@
             </li>
             {% if request.user.profile.owner == True %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:my_lodges' %}">اقامتگاه های من</a>
+                <a class="nav-link" href="{% url 'accounts:my_lodges_list' %}">اقامتگاه های من</a>
             </li>
             {% endif %}
         </ul>

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.forms import inlineformset_factory
 from .models import Profile
-from lodges.models import Lodge 
+from lodges.models import Lodge , LodgeImage
 
 
 class LoginForm(forms.Form):
@@ -98,3 +99,23 @@ class MyLodgesForm(forms.ModelForm):
             'interests',
             'active',
         ]
+        widgets = {
+            'interests': forms.CheckboxSelectMultiple()
+        }
+
+
+class LodgeImageForm(forms.ModelForm):
+    class Meta:
+        model = LodgeImage
+        fields =[
+            'image'
+        ]
+
+
+LodgeImageFormSet = inlineformset_factory(
+    Lodge,
+    LodgeImage,
+    form=LodgeImageForm,
+    extra=1,
+    can_delete=True
+)

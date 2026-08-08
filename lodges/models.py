@@ -12,7 +12,10 @@ from django.conf import settings
 
 class LodgeManager(models.Manager):
     def get_showing_lodge(self):
-        return self.get_queryset().filter(active = True, status='confirmed')
+        return self.filter(active = True, status='confirmed')
+    
+    # def get_my_lodges(self,user):
+    #     return self.get_queryset().filter(owner=user)
     
 #     def search_lodge(self,query):
 #         lookup = Q(title__icontains=query) | Q(description__icontains=query)
@@ -74,6 +77,11 @@ def create_slug(sender, instance, *args, **kwargs):
 
 
 
+def lodge_image_path(instance, filename):
+    return f"lodges/{instance.lodge.owner.id}/{instance.lodge.id}/{filename}"
+
+
+
 class LodgeImage(models.Model):
     lodge= models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
-    image= models.ImageField(upload_to="lodgeimages/", null=True , blank=True)
+    image= models.ImageField(upload_to=lodge_image_path, null=True , blank=True)

@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import authenticate, login,  logout, get_user_model
-from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm, MyLodgesForm
+from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm, MyLodgesForm, LodgeImageForm, LodgeImageFormSet
 from .models import Profile, User
+from lodges.models import Lodge
+from django.views.generic import ListView, DetailView 
+
 
 def login_page(request):
     login_form= LoginForm(request.POST or None)
@@ -94,24 +97,67 @@ def interests_page(request):
     })
 
 
-def my_lodges_page(request):
+
+############################################ مخصوص میزبانان اقامتگاه
+
+def create_lodge(request):
     if request.method == "POST":
-        my_lodges_form = MyLodgesForm(
-            request.POST,
-            instance=request.user.profile
-        )
-
-        if my_lodges_form.is_valid():
-            my_lodges_form.save()
-
+        form = MyLodgesForm(request.POST)
+        formset = LodgeImageFormSet(request.POST, request.FILES)
+        if form.is_valid() and formset.is_valid():
+            lodge= form.save(commit=False)
+            lodge.owner= request.user
+            lodge.save()
+            form.save_m2m()
+            formset.instance = lodge
+            formset.save()
+            return redirect("accounts:my_lodges_list")
     else:
-        my_lodges_form = MyLodgesForm(
-            instance=request.user.profile
-        )
+        form = MyLodgesForm()
+        formset = LodgeImageFormSet()
+
     context = {
-        "message": "اقامتگاه های من",
-        "my_lodges_form": my_lodges_form
+        "message": "گذاشتن اقامتگاه جدید",
+        "form" : form,
+        "formset": formset
     }
-    return render(request, 'dashboard/my_lodges.html', context)
+    return render(request, 'dashboard/create_lodge.html', context)
 
 
+
+
+def edit_lodge(request, id):
+    lodge = get_object_or_404( Lodge, id=id, owner=request.user )
+    if request.method == "POST":
+        form=MyLodgesForm(request.POST, instance=lodge)
+        formset = LodgeImageFormSet(request.POST, request.FILES, instance=lodge)
+        if form.is_valid() and formset.is_valid():
+            lodge= form.save(commit=False)
+            lodge.owner= request.user
+            lodge.status = 'pending'
+            lodge.save()
+            form.save_m2m()
+            formset.save()
+            return redirect("accounts:my_lodges_list")
+    else:
+        form = MyLodgesForm(instance=lodge)
+        formset = LodgeImageFormSet(instance=lodge)
+
+    context = {
+        "message": "ویرایش اقامتگاه",
+        "form": form,
+        "formset": formset
+    }
+    return render(request, 'dashboard/edit_lodge.html', context)
+
+
+
+
+class MyLodgesListView(ListView):
+    model = Lodge
+    template_name = 'dashboard/my_lodges_list.html'
+    context_object_name = "lodges"
+    paginate_by=10
+
+    def get_queryset(self):
+        return Lodge.objects.filter(owner=self.request.user)
