@@ -80,6 +80,7 @@ class InterestsForm(forms.ModelForm):
         widgets = {
             'interests': forms.CheckboxSelectMultiple()
         }
+    
 
 
 
@@ -110,6 +111,9 @@ class LodgeImageForm(forms.ModelForm):
         fields =[
             'image'
         ]
+        # widget = {
+        #     'image' : forms.ImageField(attrs={"multiple": True}),
+        # }
 
 
 LodgeImageFormSet = inlineformset_factory(

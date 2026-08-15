@@ -15,7 +15,7 @@
                 <a class="nav-link" href="{% url 'accounts:interests' %}">علاقه مندی ها</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">وضعیت رزروها</a>
+                <a class="nav-link" href="{% url 'reservations:reserves_view' %}">وضعیت رزروها</a>
             </li>
             {% if request.user.profile.owner == True %}
             <li class="nav-item">

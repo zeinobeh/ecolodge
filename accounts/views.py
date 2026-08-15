@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import authenticate, login,  logout, get_user_model
 from .forms import LoginForm, RegisterForm, ProfileForm, InterestsForm, MyLodgesForm, LodgeImageForm, LodgeImageFormSet
-from .models import Profile, User
+from .models import Profile, User, Interests
 from lodges.models import Lodge
 from django.views.generic import ListView, DetailView 
 
@@ -87,15 +87,32 @@ def interests_page(request):
 
         if interests_form.is_valid():
             interests_form.save()
+            # user_interest = interests_form.cleaned_data['interests']
 
     else:
         interests_form = InterestsForm(
             instance=request.user.profile
         )
-    return render(request, "dashboard/interests.html", {
-        "interests_form": interests_form
-    })
 
+
+    context= {
+        "interests_form": interests_form,
+    }
+    return render(request, "dashboard/interests.html", context)
+
+
+
+def interests_lodges(request):
+    user_interest = set( request.user.profile.interests.values_list("name" , flat=True) )
+    score = {}
+    for lodge in Lodge.objects.all():
+        lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
+        common = lodge_interest & user_interest
+        score[lodge.id] = len(common)
+    context= {
+        "score": score,
+    }
+    return render(request, "lodges_list.html", context)
 
 
 ############################################ مخصوص میزبانان اقامتگاه

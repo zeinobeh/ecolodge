@@ -8,6 +8,8 @@ from django.db.models import Q
 
 from django.conf import settings
 
+from .choices import PROVINCE_CHOICES
+
 # Create your models here.
 
 class LodgeManager(models.Manager):
@@ -17,9 +19,18 @@ class LodgeManager(models.Manager):
     # def get_my_lodges(self,user):
     #     return self.get_queryset().filter(owner=user)
     
-#     def search_lodge(self,query):
-#         lookup = Q(title__icontains=query) | Q(description__icontains=query)
-#         return self.get_queryset().filter(lookup, active=True)
+
+# class LodgeRecommend():
+#     def __init__(self, request):
+#         self.request = request
+#         self.user = request.user
+# 
+# def get_score(request, lodge):
+#     user = request.user
+#     user_interest = set(user.profile.interests.values_list("name" , flat=True) )
+#     lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
+#     common = lodge_interest & user_interest
+#     return len(common)
 
 
 
@@ -34,11 +45,11 @@ class Lodge(models.Model):
     title = models.CharField(verbose_name='عنوان')
     slug= models.SlugField(blank=True, unique=True, allow_unicode=True)
     description = models.TextField()
-    province = models.CharField()
+    province = models.CharField(choices=PROVINCE_CHOICES)
     city = models.CharField()
     address = models.TextField()
-    capacity = models.IntegerField()
-    price = models.IntegerField()
+    capacity = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
     interests = models.ManyToManyField("accounts.Interests" , blank=True)
     active = models.BooleanField(default=True)
     status = models.CharField(choices=STATUS_CHOICES, default='pending')
