@@ -19,8 +19,8 @@ def login_page(request):
             print('Error')
 
     context={
-        'title': 'login page',
-        'message': 'Login',
+        'title': 'صفحه ورود',
+        'message': 'ورود',
         'login_form': login_form
     }
     return render(request,'login_page.html',context)
@@ -38,8 +38,8 @@ def register_page(request):
         User.objects.create_user(username=username,email=email,password=password)
 
     context={
-        'title': 'register page',
-        'message': 'register',
+        'title': 'صفحه عضویت',
+        'message': 'عضویت',
         'register_form': register_form
     }
     return render(request,'register_page.html',context)
@@ -134,7 +134,7 @@ def create_lodge(request):
         formset = LodgeImageFormSet()
 
     context = {
-        "message": "گذاشتن اقامتگاه جدید",
+        "message": "ثبت اقامتگاه جدید",
         "form" : form,
         "formset": formset
     }
@@ -161,7 +161,7 @@ def edit_lodge(request, id):
         formset = LodgeImageFormSet(instance=lodge)
 
     context = {
-        "message": "ویرایش اقامتگاه",
+        "message": "ویرایش اطلاعات اقامتگاه",
         "form": form,
         "formset": formset
     }
@@ -177,4 +177,4 @@ class MyLodgesListView(ListView):
     paginate_by=10
 
     def get_queryset(self):
-        return Lodge.objects.filter(owner=self.request.user)
+        return Lodge.objects.filter(owner=self.request.user).order_by('-id')

@@ -44,7 +44,7 @@ class LodgesListView(ListView):
 
 
     def get_queryset(self):
-        queryset = Lodge.objects.filter(active = True, status='confirmed')      #نمایش اقامتگاه هایی که همه کابران میتوانند ببینند
+        queryset = Lodge.objects.filter(active = True, status='confirmed').order_by('-id')      #نمایش اقامتگاه هایی که همه کابران میتوانند ببینند
 
         ids = recommend(self.request,queryset)
 

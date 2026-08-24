@@ -8,36 +8,45 @@
 
 {% block content %}
 
-<form action="{% url 'lodges:lodges_list_view' %}">
-    <input type="text" name="q" placeholder="جستجوی اقامتگاه...">
-    
-    <select name="province">
-        <option value="">
-            همه استان ها
-        </option>
-        {% for province in provinces %}
-            <option value="{{ province }}" {% if request.GET.province == province %} selected {% endif %}>
-                {{ province }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <div>تاریخ ورود: <input type="date" name="check_in" ></div>
-    <div>تاریخ خروج: <input type="date" name="check_out" ></div>
-
-    <input type="number" min="0" name="guest_count" placeholder="تعداد مسافران">
-
-    <input type="number" min="0" name="price" placeholder="حداکثر قیمت هر شب">
-
-   <button type="submit">جستجو</button>
-</form>
-
 
 
 <section class="container py-5">
 
     <div class="row g-4">
 
+        <div class="col-sm-2">
+            
+
+            <form action="{% url 'lodges:lodges_list_view' %}">
+                <input type="text" name="q" placeholder="جستجوی اقامتگاه...">
+    
+                <select name="province">
+                    <option value="">
+                        همه استان ها
+                    </option>
+                    {% for province in provinces %}
+                    <option value="{{ province }}" {% if request.GET.province == province %} selected {% endif %}>
+                        {{ province }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <div>تاریخ ورود: <input type="date" name="check_in" ></div>
+                <div>تاریخ خروج: <input type="date" name="check_out" ></div>
+
+                <input type="number" min="0" name="guest_count" placeholder="تعداد مسافران">
+
+                <input type="number" min="0" name="price" placeholder="حداکثر قیمت هر شب">
+
+                <button type="submit">جستجو</button>
+            </form>
+
+        </div>
+
+        <div class="col-sm-10">
+
+            <div class="row g-4">
+                
         {% for lodge in lodges %} 
         
             <div class="col-xl-3 col-lg-4 col-md-6 col-12 d-flex justify-content-center">
@@ -51,17 +60,20 @@
             </div>
 
         {% endfor %}
+            </div>
+        
+            
+        <div class="row py-4">
 
+            {% include 'component/pagination.html' %}  
+
+        </div>
     </div>
 
 </section> 
 
 
-<div class="row">
 
-    {% include 'component/pagination.html' %}  
-
-</div>
 
 
 

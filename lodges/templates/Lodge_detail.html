@@ -3,22 +3,60 @@
 
 {% block content %}
 
-
-{% for image in lodge.images.all %}
-    <img src="{{ image.image.url }}" alt="{{ lodge.title }}" />
-{% endfor %}
+<div class="container">
 
 
-<h1>{{ lodge.title }}</h1>
-<p>{{ lodge.description }}</p>
-<h2>{{ lodge.province}}</h2>
-<h2>{{ lodge.city}}</h2>
-<p>{{ lodge.address }}</p>
-<h2>{{ lodge.capacity}}</h2>
-<h2>{{ lodge.price}}</h2>
+<div class="row">
+
+  <div class="col py-5">
 
 
-<button id="reserve" onclick="reserve()" type="button"> رزرو </button>
- 
+<div id="carousel" class="carousel slide" data-bs-ride="carousel">
 
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    {% for image in lodge.images.all %}
+        <div class="carousel-item active">
+            <img src="{{ image.image.url }}" alt="{{ lodge.title }}" class="d-block" />
+        </div>
+    {% endfor %}
+  </div>
+
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col py-5">
+
+<h3>نام اقامتگاه: {{ lodge.title }}</h3>
+<p>توضیحات: {{ lodge.description }}</p>
+<p>استان: {{ lodge.province}}</p>
+<p>شهر: {{ lodge.city}}</p>
+<p>آدرس کامل: {{ lodge.address }}</p>
+<p>ظرفیت اقامتگاه: {{ lodge.capacity}}</p>
+<p>قیمت به ازای هر شب: {{ lodge.price}}</p>
+
+
+{% if request.user.is_authenticated %}
+    <a href="{% url 'reservations:reserve' lodge.id %}"><button id="reserve" type="button" class="btn btn-success mb-5"> رزرو </button></a>
+{% else%}
+    <br>
+    <p>برای رزرو کردن باید در سایت وارد شوید.</p>
+{% endif %}
+</div>
+
+</div>
+
+</div>
 {% endblock %}

@@ -9,7 +9,7 @@ from lodges.models import Lodge
 # Create your views here.
 
 
-def resevation_data(request, lodge_id):
+def reservation_data(request, lodge_id):
     lodge = get_object_or_404(Lodge, id=lodge_id)
     if request.method == 'POST' :
         form = ReservationForm(request.POST)
@@ -61,5 +61,14 @@ class ReservesView(ListView):
     paginate_by=10
 
     def get_queryset(self):
-        return Reservation.objects.filter(user=self.request.user)
+        return Reservation.objects.filter(user=self.request.user).order_by('-id')
     
+
+
+def cancel_reserve(request, reservation_id):
+    reserve = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reserve.status = False
+    reserve.save()
+    return redirect("reservations:reserves_view")
+
+

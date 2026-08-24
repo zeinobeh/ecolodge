@@ -12,9 +12,9 @@ from .choices import PROVINCE_CHOICES
 
 # Create your models here.
 
-class LodgeManager(models.Manager):
-    def get_showing_lodge(self):
-        return self.filter(active = True, status='confirmed')
+# class LodgeManager(models.Manager):
+#     def get_showing_lodge(self):
+#         return self.filter(active = True, status='confirmed')
     
     # def get_my_lodges(self,user):
     #     return self.get_queryset().filter(owner=user)
@@ -44,18 +44,18 @@ class Lodge(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='lodges')
     title = models.CharField(verbose_name='عنوان')
     slug= models.SlugField(blank=True, unique=True, allow_unicode=True)
-    description = models.TextField()
-    province = models.CharField(choices=PROVINCE_CHOICES)
-    city = models.CharField()
-    address = models.TextField()
-    capacity = models.PositiveIntegerField()
-    price = models.PositiveIntegerField()
-    interests = models.ManyToManyField("accounts.Interests" , blank=True)
-    active = models.BooleanField(default=True)
-    status = models.CharField(choices=STATUS_CHOICES, default='pending')
+    description = models.TextField(verbose_name='توضیحات و امکانات')
+    province = models.CharField(choices=PROVINCE_CHOICES, verbose_name='استان')
+    city = models.CharField(verbose_name='شهر')
+    address = models.TextField(verbose_name='آدرس کامل')
+    capacity = models.PositiveIntegerField(verbose_name='ظرفیت اقامتگاه')
+    price = models.PositiveIntegerField(verbose_name='قیمت هر شب')
+    interests = models.ManyToManyField("accounts.Interests" , blank=True, verbose_name='جاذبه ها')
+    active = models.BooleanField(default=True, verbose_name='فعال بودن')
+    status = models.CharField(choices=STATUS_CHOICES, default='pending', verbose_name='وضعیت')
     
 
-    objects= LodgeManager()
+    # objects= LodgeManager()
 
     class Meta:
         verbose_name= 'اقامتگاه'

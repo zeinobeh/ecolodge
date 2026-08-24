@@ -23,9 +23,8 @@
             <th> {{ reserve.guest_count }}</th>
             <th> {{ reserve.total_price }}</th>
             <th> {{ reserve.status }}</th>
-            
-            <!-- دکمه برای لغو کردن -->
-            <button ></button>          
+            <th><a href="{% url 'reservations:cancel_reserve' reserve.id %}"><button type="button" >لغو رزرو</button></a></th>
+                     
         </tr>
     {% endfor %}
     </table>

@@ -7,9 +7,11 @@ from lodges.models import Lodge , LodgeImage
 
 class LoginForm(forms.Form):
     username = forms.CharField(
+        label = "نام کاربری",
         widget = forms.TextInput(attrs={'maxlength':'150'})
     )
     password = forms.CharField(
+        label = "رمز عبور",
         widget= forms.PasswordInput()
     )
 
@@ -18,16 +20,19 @@ User = get_user_model()
 
 class RegisterForm(forms.Form):
     username = forms.CharField(
+        label = "نام کاربری",
         widget = forms.TextInput(attrs={'maxlength':'150'})
     )
     email = forms.EmailField(
+        label = "ایمیل",
         widget = forms.EmailInput()
     )
     password = forms.CharField(
+        label = "رمزعبور",
         widget= forms.PasswordInput()
     )
     password2 = forms.CharField(
-        label= 'confirm password',
+        label= 'تکرار رمزعبور',
         widget= forms.PasswordInput()
     )
 

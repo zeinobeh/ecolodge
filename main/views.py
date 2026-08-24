@@ -13,7 +13,7 @@ def footer(request):
 
 
 def home_page(request):
-    lodges = Lodge.objects.get_showing_lodge()
+    lodges = Lodge.objects.filter(active = True, status='confirmed').order_by('-id')
     
     paginator=Paginator(lodges, 8)
     page = request.GET.get('page')
