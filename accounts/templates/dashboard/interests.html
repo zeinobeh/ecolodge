@@ -2,11 +2,22 @@
 
 {% block dashboard_content %}
 
+  {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %} id="message_box">
+            <button type="button" onclick="buttonclose()">&times;</button>
+            {{ message }}
+          </li>  
+          {% endfor %}
+        </ul>
+  {% endif %}
+
 <div class="container">
     <form action="" method="post">
       {% csrf_token %}
       {{ interests_form }}
-      <button >send</button>
+      <button type="submit" class="btn btn-success" >ثبت</button>
     </form>
   </div>
 

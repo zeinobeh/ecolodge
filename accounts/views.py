@@ -5,6 +5,8 @@ from .models import Profile, User, Interests
 from lodges.models import Lodge
 from django.views.generic import ListView, DetailView 
 
+from django.contrib import messages
+
 
 def login_page(request):
     login_form= LoginForm(request.POST or None)
@@ -36,6 +38,7 @@ def register_page(request):
         email = register_form.cleaned_data.get('email')
         password = register_form.cleaned_data.get('password')
         User.objects.create_user(username=username,email=email,password=password)
+        messages.success(request, "با موفقیت عضو شدید")
 
     context={
         'title': 'صفحه عضویت',
@@ -66,15 +69,17 @@ def profile_page(request):
 
         if profile_form.is_valid():
             profile_form.save()
-
+            messages.success(request, "پروفایل آپدیت شد")
+            return redirect("accounts:profile")
+            
     else:
         profile_form = ProfileForm(
             instance=request.user.profile
         )
 
-    return render(request, "dashboard/profile.html", {
-        "profile_form": profile_form
-    })
+
+    context={'profile_form': profile_form}
+    return render(request, "dashboard/profile.html", context)
 
 
 
@@ -88,6 +93,8 @@ def interests_page(request):
         if interests_form.is_valid():
             interests_form.save()
             # user_interest = interests_form.cleaned_data['interests']
+            messages.success(request, "علاقه مندی ها ثبت شد")
+            return redirect("accounts:interests")
 
     else:
         interests_form = InterestsForm(
