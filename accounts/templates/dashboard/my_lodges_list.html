@@ -4,27 +4,65 @@
 
 <h1>{{ message }}</h1>
 
-<button>
-<a href="{% url 'accounts:create_lodge' %}">ثبت اقامتگاه جدید</a>
-</button>
+
 
 <div class="container">
-    <table>
+
+  <button type="button" class="btn btn-success mb-2">
+    <a href="{% url 'accounts:create_lodge' %}">ثبت اقامتگاه جدید</a>
+  </button>
+  
+    <table class="table table-striped table-hover table-bordered">
   <tr>
     <th>نام اقامتگاه</th>
     <th>فعال/غیرفعال</th>
     <th>حالت</th>
+    <th>ویرایش</th>
+    <th>مشاهده</th>
+    <th>حذف</th>
   </tr>
 
     {% for lodge in lodges %} 
-    <tr>
-    <td>{{ lodge.title }}</td>
-    <td>{{ lodge.active }}</td>
-    <td>{{ lodge.status }}</td>
-    <td><a href="{% url 'accounts:edit_lodge' lodge.id %}">ویرایش</a></td>
-    <td><a href="{% url 'lodges:lodge_detail' lodge.slug %}">مشاهده</a></td>
-    <td><a class="btn btn-danger" href="#"><i class="fa fa-trash-o "></i></a></td>
-    </tr>
+      <tr>
+      <td>{{ lodge.title }}</td>
+      {% if lodge.active %}
+      <td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
+      {% else %}
+      <td><i class="fa fa-close" style="color:red"></i></td>
+      {% endif %}
+      <td>{{ lodge.status }}</td>
+      <td><a class="btn" href="{% url 'accounts:edit_lodge' lodge.id %}"><i class="fa fa-edit"></i></a></td>
+      <td><a class="btn" href="{% url 'lodges:lodge_detail' lodge.slug %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+      <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ lodge.id }}"><i class="fa fa-trash-o "></i></button></td>
+      </tr>
+
+      <!-- The Modal -->
+<div class="modal" id="deleteModal{{ lodge.id }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">حذف اقامتگاه</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        آیا از حذف اقامتگاه "{{ lodge.title }}" مطمئن هستید؟
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <a href="{% url 'accounts:delete_lodge' lodge.id %}" class="btn btn-danger">بله</a>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">خیر</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+    
+
     {% endfor %}
 
 </table>

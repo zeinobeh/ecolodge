@@ -116,9 +116,9 @@ class LodgeImageForm(forms.ModelForm):
         fields =[
             'image'
         ]
-        # widget = {
-        #     'image' : forms.ImageField(attrs={"multiple": True}),
-        # }
+        widget = {
+            'image' : forms.ImageField(),
+        }
 
 
 LodgeImageFormSet = inlineformset_factory(

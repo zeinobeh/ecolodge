@@ -175,6 +175,10 @@ def edit_lodge(request, id):
     return render(request, 'dashboard/edit_lodge.html', context)
 
 
+def delete_lodge(request, id):
+    lodge = get_object_or_404( Lodge, id=id, owner=request.user )  
+    lodge.delete()
+    return redirect('accounts:my_lodges_list')  
 
 
 class MyLodgesListView(ListView):

@@ -7,7 +7,7 @@
         <ul class="messages">
           {% for message in messages %}
           <li {% if message.tags %} class="{{ message.tags }}"{% endif %} id="message_box">
-            <button type="button" onclick="buttonclose()">&times;</button>
+            <button type="button" class="btn-close" onclick="buttonclose()"></button>
             {{ message }}
           </li>  
           {% endfor %}

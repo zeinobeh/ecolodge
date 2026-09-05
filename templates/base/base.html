@@ -15,6 +15,8 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}">
 
+    <link rel="stylesheet" href="{% static 'css/mds.bs.datetimepicker.style.css' %}">
+
     <!-- fontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -39,6 +41,18 @@
     {% include 'base/header.html' %}
 
     <main>
+        {% if messages %}
+            <ul class="messages">
+          {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %} id="message_box">
+                    <button type="button" class="btn-close" onclick="buttonclose()"></button>
+                    {{ message }}
+                </li>  
+          {% endfor %}
+            </ul>
+        {% endif %}
+
+
         {% block content %}{% endblock %}
     </main>
 
@@ -46,6 +60,7 @@
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
-
+    <script src="{% static 'js/mds.bs.datetimepicker.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -4,7 +4,10 @@ from django.views.generic import ListView
 from .forms import ReservationForm
 from .models import Reservation
 from lodges.models import Lodge
+from django.contrib import messages
 
+from datetime import date
+import jdatetime
 
 # Create your views here.
 
@@ -22,8 +25,14 @@ def reservation_data(request, lodge_id):
                 reservation.user = request.user
                 reservation.lodge = lodge
 
-                reservation.check_data()
-            
+                if reservation.check_in > reservation.check_out or date.today() > reservation.check_in :
+                    messages.error(request, "تاریخ را درست وارد کنید")
+                    return redirect('lodges:lodge_detail', slug=lodge.slug) 
+
+                if reservation.guest_count > reservation.lodge.capacity :
+                    messages.error(request, "تعداد مهمان از ظرفیت اقامتگاه بیشتر است")
+                    return redirect('lodges:lodge_detail', slug=lodge.slug)
+                
                 reservation.total_price = lodge.price * (reservation.check_out - reservation.check_in).days
 
                 conflict = Reservation.objects.filter(
@@ -34,22 +43,25 @@ def reservation_data(request, lodge_id):
                 ).exists()
 
                 if conflict:
-                    return render(request, 'reserve.html', {
-                        "message": "این اقامتگاه در این تاریخ رزرو شده است",
-                        "form": form
-                    })
+                    messages.error(request, "این اقامتگاه در این تاریخ رزرو شده است")
+                    return redirect('lodges:lodge_detail', slug=lodge.slug)
                 else:
                     reservation.status = True
                     reservation.save()
-                
+                    messages.success(request, "با موفقیت رزرو شد.")
+                    return redirect('lodges:lodge_detail', slug=lodge.slug)
+        else:
+            print("FORM IS INVALID")
+            print(form.errors)        
     else:
         form = ReservationForm()
 
     context = {
+        "lodge" : lodge ,
         "message": "صفحه رزرو",
         "form" : form
     }
-    return render(request, 'reserve.html', context)
+    return render(request, 'lodge_detail.html', context)
 
 
 

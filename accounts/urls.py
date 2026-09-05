@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  login_page, register_page, log_out, dashboard, profile_page, interests_page, create_lodge, MyLodgesListView, edit_lodge
+from .views import  login_page, register_page, log_out, dashboard, profile_page, interests_page, create_lodge, MyLodgesListView, edit_lodge, delete_lodge
 
 
 app_name = "accounts"
@@ -14,6 +14,7 @@ urlpatterns = [
     path('dashboard/create_lodge/', create_lodge , name='create_lodge'),
     path('dashboard/my_lodges_list/', MyLodgesListView.as_view() , name='my_lodges_list'),
     path('dashboard/my_lodges_list/<int:id>/edit/', edit_lodge, name='edit_lodge'),
+    path('dashboard/my_lodges_list/<int:id>/delete/', delete_lodge, name='delete_lodge'),
 ]
 
 

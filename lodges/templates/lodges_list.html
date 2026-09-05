@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load jalali_tags %}
 
 {% block title %}
 {{ block.super }} | اقامتگاه ها
@@ -31,8 +32,53 @@
                     {% endfor %}
                 </select>
 
-                <div>تاریخ ورود: <input type="date" name="check_in" ></div>
-                <div>تاریخ خروج: <input type="date" name="check_out" ></div>
+                <!-- <div>تاریخ ورود: <input type="date" name="check_in" ></div>
+                <div>تاریخ خروج: <input type="date" name="check_out" ></div> -->
+<div class="mb-3">
+    <label for="check_in_display" class="form-label">
+        تاریخ ورود
+    </label>
+
+    <input
+        type="text"
+        id="check_in_display"
+        class="form-control"
+        placeholder="تاریخ ورود را انتخاب کنید"
+        autocomplete="off"
+        readonly
+    >
+
+    <input
+        type="hidden"
+        id="check_in"
+        name="check_in"
+        value="{{ request.GET.check_in }}"
+    >
+</div>
+
+
+<div class="mb-3">
+    <label for="check_out_display" class="form-label">
+        تاریخ خروج
+    </label>
+
+    <input
+        type="text"
+        id="check_out_display"
+        class="form-control"
+        placeholder="تاریخ خروج را انتخاب کنید"
+        autocomplete="off"
+        readonly
+    >
+
+    <input
+        type="hidden"
+        id="check_out"
+        name="check_out"
+        value="{{ request.GET.check_out }}"
+    >
+</div>
+
 
                 <input type="number" min="0" name="guest_count" placeholder="تعداد مسافران">
 
@@ -76,3 +122,44 @@
 
 {% endblock %}
 
+
+{% block extra_js %}
+<script>
+    
+
+const checkInPicker = new mds.MdsPersianDateTimePicker(
+    document.getElementById("check_in_display"),
+    {
+        isGregorian: false,
+        targetDateSelector: "#check_in",
+        textFormat: "yyyy/MM/dd",
+        dateFormat: "yyyy/MM/dd",
+        disableBeforeToday: true,
+        persianNumber: false
+    }
+);
+
+
+const checkOutPicker = new mds.MdsPersianDateTimePicker(
+    document.getElementById("check_out_display"),
+    {
+        isGregorian: false,
+        targetDateSelector: "#check_out",
+        textFormat: "yyyy/MM/dd",
+        dateFormat: "yyyy/MM/dd",
+        disableBeforeToday: true,
+        persianNumber: false
+    }
+);
+
+
+
+const checkInDisplay = document.getElementById("check_in_display");
+const checkInHidden = document.getElementById("check_in");
+
+checkInHidden.addEventListener("change", function () {
+    checkInDisplay.value = this.value;
+});
+
+</script>
+{% endblock %}

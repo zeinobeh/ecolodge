@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView 
 from .models import Lodge
 from .choices import PROVINCES
+from reservations.forms import ReservationForm
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
+from datetime import datetime
 
 # Create your views here.
 
@@ -72,6 +74,8 @@ class LodgesListView(ListView):
         check_in = self.request.GET.get("check_in")
         check_out = self.request.GET.get("check_out")
         if check_in and check_out :
+            check_in = datetime.strptime(check_in, "%Y/%m/%d").date()
+            check_out = datetime.strptime(check_out, "%Y/%m/%d").date()
             queryset = queryset.exclude(
                 lodge_reserve__check_in__lte = check_out,
                 lodge_reserve__check_out__gte = check_in,
@@ -87,7 +91,7 @@ class LodgesListView(ListView):
 
 class LodgeDetail(DetailView):
     model = Lodge
-    template_name = 'Lodge_detail.html'
+    template_name = 'lodge_detail.html'
     context_object_name = "lodge"
 
     def get_object(self, queryset = None):
@@ -100,5 +104,9 @@ class LodgeDetail(DetailView):
         if lodge.owner == self.request.user or self.request.user.is_staff :
             return lodge
         raise Http404("شما دسترسی به این صفحه ندارید")
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReservationForm()
+        return context
     

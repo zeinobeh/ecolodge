@@ -7,16 +7,6 @@
 
 {% block content %}
 
-  {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}"{% endif %} id="message_box">
-            <button type="button" onclick="buttonclose()">&times;</button>
-            {{ message }}
-          </li>  
-          {% endfor %}
-        </ul>
-  {% endif %}
 
 <h2 class="text-center m-3">{{ message }}</h2>
 

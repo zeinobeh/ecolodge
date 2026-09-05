@@ -1,11 +1,13 @@
 {% extends "dashboard/base_dashboard.html" %}
+{% load jalali_tags %}
+
 
 {% block dashboard_content %}
 
 
 
 <div>
-    <table>
+    <table class="table table-striped table-hover table-bordered">
         <tr>
             <th>نام اقامتگاه</th>
             <th>تاریخ ورود</th>
@@ -18,14 +20,44 @@
     {% for reserve in reserves %}
         <tr>
             <th>{{ reserve.lodge }}</th>
-            <th> {{ reserve.check_in }}</th>
-            <th> {{ reserve.check_out }}</th>
+            <th> {{ reserve.check_in|jalali_date }}</th>
+            <th> {{ reserve.check_out|jalali_date }}</th>
             <th> {{ reserve.guest_count }}</th>
             <th> {{ reserve.total_price }}</th>
-            <th> {{ reserve.status }}</th>
-            <th><a href="{% url 'reservations:cancel_reserve' reserve.id %}"><button type="button" >لغو رزرو</button></a></th>
-                     
+            {% if reserve.status %}
+            <th><i class="fa fa-check" aria-hidden="true" style="color:green"></i></th>
+            {% else %}
+            <th><i class="fa fa-close" style="color:red"></i></th>
+            {% endif %}
+            <th><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal{{ reserve.id }}">لغو رزرو</button></th>
         </tr>
+
+        <!-- The Modal -->
+<div class="modal" id="cancelModal{{ reserve.id }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">لغو رزرو</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        آیا میخواهید رزرو اقامتگاه "{{ reserve.lodge }}" را لغو نمایید؟
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <a href="{% url 'reservations:cancel_reserve' reserve.id %}" class="btn btn-danger">بله</a>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">خیر</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
     {% endfor %}
     </table>
 </div>
