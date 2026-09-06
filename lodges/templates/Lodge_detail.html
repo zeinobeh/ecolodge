@@ -18,20 +18,28 @@
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
     {% for image in lodge.images.all %}
-        <div class="carousel-item active">
-            <img src="{{ image.image.url }}" alt="{{ lodge.title }}" class="d-block" />
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ image.image.url }}" alt="{{ lodge.title }}" class="d-block" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}" />
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal" id="imageModal{{ image.id }}">
+            <div class="modal-dialog">
+                <img src="{{ image.image.url }}" alt="{{ lodge.title }}"/>
+            </div>
         </div>
     {% endfor %}
   </div>
 
   <!-- Left and right controls/icons -->
+   {% if lodge.images.count > 1 %}
   <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </button>
   <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
     <span class="carousel-control-next-icon"></span>
   </button>
-
+  {% endif %}
 </div>
 
 </div>
@@ -43,11 +51,11 @@
 
 <h3>نام اقامتگاه: {{ lodge.title }}</h3>
 <p>توضیحات: {{ lodge.description }}</p>
-<p>استان: {{ lodge.province}}</p>
-<p>شهر: {{ lodge.city}}</p>
+<p>استان: {{ lodge.province }}</p>
+<p>شهر: {{ lodge.city }}</p>
 <p>آدرس کامل: {{ lodge.address }}</p>
-<p>ظرفیت اقامتگاه: {{ lodge.capacity}}</p>
-<p>قیمت به ازای هر شب: {{ lodge.price}}</p>
+<p>ظرفیت اقامتگاه: {{ lodge.capacity }}</p>
+<p>قیمت به ازای هر شب: {{ lodge.price }}</p>
 
 
 <hr>
@@ -119,9 +127,33 @@
 
 </div>
 
-    <button type="submit" class="btn btn-success">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#priceModal">
         رزرو اقامتگاه
     </button>
+
+     <!-- The Modal -->
+<div class="modal" id="priceModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        قیمت نهایی: 
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success"> رزرو</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </form>
 

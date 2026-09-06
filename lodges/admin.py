@@ -12,7 +12,6 @@ class LodgeImageInline(admin.TabularInline):
     can_delete = True  # اجازه حذف رکوردها (پیش‌فرض True)
     
 
-
 class LodgeAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'city' , 'price','status', 'active']
     list_filter = ['status' , 'active']
@@ -23,7 +22,5 @@ class LodgeAdmin(admin.ModelAdmin):
     class Meta:
         model = Lodge
     
-
-
 
 admin.site.register(Lodge, LodgeAdmin)

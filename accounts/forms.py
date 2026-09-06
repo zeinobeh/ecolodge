@@ -49,14 +49,14 @@ class RegisterForm(forms.Form):
         username=self.cleaned_data.get('username')
         query=User.objects.filter(username=username)   
         if query.exists():
-            raise forms.ValidationError('Try another username')
+            raise forms.ValidationError('نام کاربری دیگری انتخاب نمایید.')
         return username 
 
     def clean_email(self):
         email=self.cleaned_data.get('email')
         query=User.objects.filter(email=email)   
         if query.exists():
-            raise forms.ValidationError('Try another email')
+            raise forms.ValidationError('این ایمیل قبلا استفاده شده است.')
         return email
     
 

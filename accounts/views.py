@@ -109,19 +109,6 @@ def interests_page(request):
 
 
 
-def interests_lodges(request):
-    user_interest = set( request.user.profile.interests.values_list("name" , flat=True) )
-    score = {}
-    for lodge in Lodge.objects.all():
-        lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
-        common = lodge_interest & user_interest
-        score[lodge.id] = len(common)
-    context= {
-        "score": score,
-    }
-    return render(request, "lodges_list.html", context)
-
-
 ############################################ مخصوص میزبانان اقامتگاه
 
 def create_lodge(request):

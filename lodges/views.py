@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
 from datetime import datetime
+from django.db.models import Case, When
 
 # Create your views here.
 
@@ -24,9 +25,11 @@ def recommend(request, queryset):
         return []
     score = []
     for lodge in queryset :
-        score += [(lodge.id , get_score(request,lodge) )] 
-    res = sorted(score, key=lambda x: x[1],reverse=True)
-    #اگر امتیازش صفر بود] حذفش کن از لیست
+        check_score = get_score(request,lodge)
+        if check_score > 0 :
+            score += [(lodge.id , check_score )]
+     
+    res = sorted(score, key=lambda x: x[1] , reverse=True)
     return [item[0] for item in res]
 
 
@@ -48,7 +51,10 @@ class LodgesListView(ListView):
     def get_queryset(self):
         queryset = Lodge.objects.filter(active = True, status='confirmed').order_by('-id')      #نمایش اقامتگاه هایی که همه کابران میتوانند ببینند
 
-        ids = recommend(self.request,queryset)
+
+        pk_list = recommend(self.request, queryset)
+        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pk_list)])
+        queryset = queryset.filter(pk__in=pk_list).order_by(preserved)
 
         query = self.request.GET.get('q')
         if query :

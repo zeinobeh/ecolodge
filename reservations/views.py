@@ -58,7 +58,6 @@ def reservation_data(request, lodge_id):
 
     context = {
         "lodge" : lodge ,
-        "message": "صفحه رزرو",
         "form" : form
     }
     return render(request, 'lodge_detail.html', context)
