@@ -60,7 +60,7 @@
 
 <hr>
 {% if request.user.is_authenticated %}
-<form method="post" action="{% url 'reservations:reserve' lodge.id %}"  onsubmit="return testSubmit(event);">
+<form method="post" >
     {% csrf_token %}
 
     <label for="guest_count" class="form-label">

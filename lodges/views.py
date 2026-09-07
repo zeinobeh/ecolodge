@@ -16,7 +16,10 @@ def get_score(request, lodge):
     user_interest = set(user.profile.interests.values_list("name" , flat=True) )
     lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
     common = lodge_interest & user_interest
-    return len(common)
+    if user_interest > 0 :
+        return len(common)
+    else:
+        return 1
 
 #برگرداندن لیستی مرتب از آیدی اقامتگاه ها برا اساس علایق کاربر
 def recommend(request, queryset):
