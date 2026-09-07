@@ -12,28 +12,6 @@ from .choices import PROVINCE_CHOICES
 
 # Create your models here.
 
-# class LodgeManager(models.Manager):
-#     def get_showing_lodge(self):
-#         return self.filter(active = True, status='confirmed')
-    
-    # def get_my_lodges(self,user):
-    #     return self.get_queryset().filter(owner=user)
-    
-
-# class LodgeRecommend():
-#     def __init__(self, request):
-#         self.request = request
-#         self.user = request.user
-# 
-# def get_score(request, lodge):
-#     user = request.user
-#     user_interest = set(user.profile.interests.values_list("name" , flat=True) )
-#     lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
-#     common = lodge_interest & user_interest
-#     return len(common)
-
-
-
 class Lodge(models.Model):
     STATUS_CHOICES= [
         ('pending', 'در انتظار تایید'),
@@ -54,8 +32,6 @@ class Lodge(models.Model):
     active = models.BooleanField(default=True, verbose_name='فعال بودن')
     status = models.CharField(choices=STATUS_CHOICES, default='pending', verbose_name='وضعیت')
     
-
-    # objects= LodgeManager()
 
     class Meta:
         verbose_name= 'اقامتگاه'
@@ -95,4 +71,4 @@ def lodge_image_path(instance, filename):
 
 class LodgeImage(models.Model):
     lodge= models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
-    image= models.ImageField(upload_to=lodge_image_path, null=True , blank=True)
+    image= models.ImageField(upload_to=lodge_image_path, null=True , blank=True , verbose_name='عکس')

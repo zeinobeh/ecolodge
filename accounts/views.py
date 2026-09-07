@@ -109,6 +109,9 @@ def interests_page(request):
 
 
 
+
+
+
 ############################################ مخصوص میزبانان اقامتگاه
 
 def create_lodge(request):

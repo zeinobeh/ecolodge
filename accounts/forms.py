@@ -106,7 +106,11 @@ class MyLodgesForm(forms.ModelForm):
             'active',
         ]
         widgets = {
-            'interests': forms.CheckboxSelectMultiple()
+            'interests': forms.CheckboxSelectMultiple(),
+
+            'province': forms.Select(attrs={'id': 'province'}),
+            
+            'city': forms.Select(attrs={'id': 'city'}),
         }
 
 

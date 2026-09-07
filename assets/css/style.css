@@ -104,6 +104,10 @@ ul{
 
 }
 
+.pagination .page-item.active .page-link {
+  background-color: #3ac282;
+  border-color: #ffffff;
+}
 
 /* forms */
 

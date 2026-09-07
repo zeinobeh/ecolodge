@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView 
 from .models import Lodge
 from .choices import PROVINCES
 from reservations.forms import ReservationForm
-from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
 from datetime import datetime
@@ -21,8 +20,6 @@ def get_score(request, lodge):
 
 #برگرداندن لیستی مرتب از آیدی اقامتگاه ها برا اساس علایق کاربر
 def recommend(request, queryset):
-    if not request.user.is_authenticated:
-        return []
     score = []
     for lodge in queryset :
         check_score = get_score(request,lodge)
@@ -51,10 +48,10 @@ class LodgesListView(ListView):
     def get_queryset(self):
         queryset = Lodge.objects.filter(active = True, status='confirmed').order_by('-id')      #نمایش اقامتگاه هایی که همه کابران میتوانند ببینند
 
-
-        pk_list = recommend(self.request, queryset)
-        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pk_list)])
-        queryset = queryset.filter(pk__in=pk_list).order_by(preserved)
+        if self.request.user.is_authenticated:
+            pk_list = recommend(self.request, queryset)
+            preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pk_list)])
+            queryset = queryset.filter(pk__in=pk_list).order_by(preserved)
 
         query = self.request.GET.get('q')
         if query :

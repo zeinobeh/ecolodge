@@ -21,7 +21,7 @@
             <form action="{% url 'lodges:lodges_list_view' %}">
                 <input type="text" name="q" placeholder="جستجوی اقامتگاه...">
     
-                <select name="province">
+                <select name="province" id="province">
                     <option value="">
                         همه استان ها
                     </option>
@@ -30,6 +30,9 @@
                         {{ province }}
                     </option>
                     {% endfor %}
+                </select>
+
+                <select name="city" id="city">
                 </select>
 
                 <!-- <div>تاریخ ورود: <input type="date" name="check_in" ></div>
@@ -86,23 +89,16 @@
 
                 <button type="submit">جستجو</button>
             </form>
-            
-            
-            <div class="container">
-            <form action="{% url '' %}" method="post">
-                {% csrf_token %}
-                {{ interests_form }}
-                <button type="submit" class="btn btn-success" >ثبت</button>
-            </form>
-            </div>
-
 
         </div>
 
         <div class="col-lg-9 col-md-8">
 
             <div class="row g-4">
-                
+        
+        {% if lodges.count == 0 %}
+        <p style="color:red;">نتیجه ای یافت نشد</p>
+        {% endif %}
         {% for lodge in lodges %} 
         
             <div class="col-xl-3 col-lg-4 col-md-6 col-12 d-flex justify-content-center">
@@ -170,6 +166,8 @@ const checkOutPicker = new mds.MdsPersianDateTimePicker(
 // checkInHidden.addEventListener("change", function () {
 //     checkInDisplay.value = this.value;
 // });
+
+
 
 </script>
 {% endblock %}
