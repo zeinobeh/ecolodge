@@ -4,6 +4,7 @@
     box-sizing:border-box;
 }
 
+
 body{
 
     font-family:"Vazirmatn",sans-serif;
@@ -127,6 +128,11 @@ form input{
   box-shadow: 0 0 0 0.25rem rgba(58, 194, 130, 0.25); /* Changes the glow color */
 }
 
+.form-check-input:checked {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
 label {
     display:block ;
 }
@@ -194,4 +200,6 @@ table{
 .messages li.error {
     background-color: #ffe3e3;
 }
+
+
 
