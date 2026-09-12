@@ -6,7 +6,7 @@
     <div class="container">
 
         <!-- لوگو -->
-        <a href="#" class="navbar-brand fw-bold">
+        <a href="#" class="navbar-brand">
             بوم‌گردی
         </a>
 
@@ -21,11 +21,11 @@
         <ul class="navbar-nav me-auto">
 
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'home' %}">خانه</a>
+                <a class="nav-link {% if request.path == '/' %}fs-5 text-success{% endif %}" href="{% url 'home' %}">خانه</a>
             </li>
 
             <li class="nav-item">
-                <a li class="nav-link " href="{% url 'lodges:lodges_list_view' %}">اقامتگاه‌ها</a>
+                <a li class="nav-link {% if request.path == '/lodges/' %}fs-5 text-success{% endif %}" href="{% url 'lodges:lodges_list_view' %}">اقامتگاه‌ها</a>
             </li>
 
             <li class="nav-item">
@@ -47,11 +47,11 @@
                     <div class="dropdown header-profile">
                 <a href="{% url 'accounts:profile' %}" class="btn btn-success btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">پروفایل</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:interests' %}">علاقه مندی ها</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reservations:reserves_view' %}">وضعیت رزروها</a></li>
+                        <li><a class="dropdown-item {% if request.path == '/dashboard/profile/' %}fw-bold text-success{% endif %}" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a></li>
+                        <li><a class="dropdown-item {% if request.path == '/dashboard/interests/' %}fw-bold text-success{% endif %}" href="{% url 'accounts:interests' %}">علاقه مندی ها</a></li>
+                        <li><a class="dropdown-item {% if request.path == '/reserve/view/' %}fw-bold text-success{% endif %}" href="{% url 'reservations:reserves_view' %}">وضعیت رزروها</a></li>
                         {% if request.user.profile.owner == True %}
-                        <li><a class="dropdown-item" href="{% url 'accounts:my_lodges_list' %}">اقامتگاه های من</a></li>
+                        <li><a class="dropdown-item {% if request.path == '/dashboard/my_lodges_list/' %}fw-bold text-success{% endif %}" href="{% url 'accounts:my_lodges_list' %}">اقامتگاه های من</a></li>
                         {% endif %}
                     </ul>
                     </div>

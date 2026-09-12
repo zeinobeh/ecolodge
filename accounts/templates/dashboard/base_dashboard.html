@@ -17,17 +17,17 @@
         <!-- منو -->
          <ul class="nav flex-column ">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a>
+                <a class="nav-link {% if request.path == '/dashboard/profile/' %}fs-5 text-success{% endif %}" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:interests' %}">علاقه مندی ها</a>
+                <a class="nav-link {% if request.path == '/dashboard/interests/' %}fs-5 text-success{% endif %}" href="{% url 'accounts:interests' %}">علاقه مندی ها</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'reservations:reserves_view' %}">وضعیت رزروها</a>
+                <a class="nav-link {% if request.path == '/reserve/view/' %}fs-5 text-success{% endif %}" href="{% url 'reservations:reserves_view' %}">وضعیت رزروها</a>
             </li>
             {% if request.user.profile.owner == True %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:my_lodges_list' %}">اقامتگاه های من</a>
+                <a class="nav-link {% if request.path == '/dashboard/my_lodges_list/' %}fs-5 text-success{% endif %}" href="{% url 'accounts:my_lodges_list' %}">اقامتگاه های من</a>
             </li>
             {% endif %}
         </ul>

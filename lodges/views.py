@@ -16,7 +16,7 @@ def get_score(request, lodge):
     user_interest = set(user.profile.interests.values_list("name" , flat=True) )
     lodge_interest = set( lodge.interests.values_list("name" , flat=True))    
     common = lodge_interest & user_interest
-    if user_interest > 0:
+    if len(user_interest) > 0:
         return len(common)
     else:
         return 1
