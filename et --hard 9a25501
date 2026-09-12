@@ -1,0 +1,27 @@
+[33m9a25501[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m color current page
+[33m688df89[m user does not select interest
+[33m2dbebf5[m deployed
+[33m0b2966c[m return
+[33m50b526f[m change form in lodge detail
+[33mdf0193e[m Prepare project for Render
+[33m600bf9d[m add default value to secret key
+[33m1dcf44c[m allow host
+[33mfd8a853[m connect to render
+[33m316964d[m vercel
+[33m8b3136b[m city filtering
+[33ma5bb8b9[m Interest suggestion
+[33m073efee[m persian calender
+[33m842424d[m show messages
+[33m53ce02d[m footer and lodge detail page
+[33m2e8cc84[m search and filter, reserve based on interest algorithm
+[33m2418223[m improve reservation
+[33m4327f30[m make dashboard base
+[33m96ca030[m basic dashboard backend
+[33m0935ba9[m card lodges, home template, pagination
+[33m34bdf3f[m add simple lodge card
+[33ma7f7053[m maked folders of assets
+[33mec5842e[m add user
+[33m9821619[m add images to detail viwe of lodge
+[33m82579d2[m add views to lodges app
+[33m91c02f4[m add lodge model
+[33m8959abe[m setup project and apps

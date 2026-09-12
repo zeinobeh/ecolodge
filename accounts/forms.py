@@ -74,6 +74,8 @@ class ProfileForm(forms.ModelForm):
         ]
 
 
+
+
 class InterestsForm(forms.ModelForm):
 
     class Meta:

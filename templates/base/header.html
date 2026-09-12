@@ -45,7 +45,7 @@
                 {% if request.user.is_authenticated %}
                     <!-- if tablet, display dropdown profile in navbar -->
                     <div class="dropdown header-profile">
-                <a href="{% url 'accounts:profile' %}" class="btn btn-success btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">پروفایل</a>
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-success btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">پروفایل</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item {% if request.path == '/dashboard/profile/' %}fw-bold text-success{% endif %}" href="{% url 'accounts:profile' %}">ویرایش اطلاعات</a></li>
                         <li><a class="dropdown-item {% if request.path == '/dashboard/interests/' %}fw-bold text-success{% endif %}" href="{% url 'accounts:interests' %}">علاقه مندی ها</a></li>

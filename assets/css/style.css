@@ -122,6 +122,11 @@ form input{
     border: 1px solid #198754 ;
 }
 
+.form-control:focus {
+  border-color: #198754; /* Changes the border color to your custom hex */
+  box-shadow: 0 0 0 0.25rem rgba(58, 194, 130, 0.25); /* Changes the glow color */
+}
+
 label {
     display:block ;
 }
@@ -189,3 +194,4 @@ table{
 .messages li.error {
     background-color: #ffe3e3;
 }
+

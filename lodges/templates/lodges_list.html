@@ -19,9 +19,9 @@
             
 
             <form action="{% url 'lodges:lodges_list_view' %}">
-                <input type="text" name="q" placeholder="جستجوی اقامتگاه...">
+                <input type="text" id="q" name="q" class="form-control border-success" placeholder="جستجو نام یا توضیحات اقامتگاه">
     
-                <select name="province" id="province">
+                <select name="province" id="province" class="form-select form-control border-success">
                     <option value="">
                         همه استان ها
                     </option>
@@ -32,15 +32,13 @@
                     {% endfor %}
                 </select>
 
-                <select name="city" id="city">
+                <select name="city" id="city" class="form-select form-control border-success">
                 </select>
 
                 <!-- <div>تاریخ ورود: <input type="date" name="check_in" ></div>
                 <div>تاریخ خروج: <input type="date" name="check_out" ></div> -->
 <div class="mb-3">
-    <label for="check_in_display" class="form-label">
-        تاریخ ورود
-    </label>
+
 
     <input
         type="text"
@@ -61,9 +59,6 @@
 
 
 <div class="mb-3">
-    <label for="check_out_display" class="form-label">
-        تاریخ خروج
-    </label>
 
     <input
         type="text"
@@ -83,11 +78,11 @@
 </div>
 
 
-                <input type="number" min="1" name="guest_count" placeholder="تعداد مسافران">
+                <input type="number" min="1" name="guest_count" class="form-control" placeholder="تعداد مسافران">
 
-                <input type="number" min="0" name="price" placeholder="حداکثر قیمت هر شب">
+                <input type="number" min="0" name="price" class="form-control" placeholder="حداکثر قیمت هر شب">
 
-                <button type="submit">جستجو</button>
+                <button type="submit" class="btn btn-success">جستجو</button>
             </form>
 
         </div>

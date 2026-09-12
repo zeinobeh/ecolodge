@@ -19,12 +19,14 @@ class Interests(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    first_name = models.CharField(blank=True)
-    last_name = models.CharField(blank=True)
-    phone_number = models.CharField(max_length=11, blank=True)
+    first_name = models.CharField(blank=True, verbose_name='نام')
+    last_name = models.CharField(blank=True, verbose_name='نام خانوادگی')
+    phone_number = models.CharField(max_length=11, blank=True, verbose_name='شماره همراه')
     owner = models.BooleanField( verbose_name="آیا میزبان اقامتگاه هستی؟" ,default=False)
-    interests = models.ManyToManyField(Interests , blank=True)
+    interests = models.ManyToManyField(Interests , blank=True, verbose_name='علاقه مندی ها')
 
+    def __str__(self):
+        return f"{self.user}"
 
 
 @receiver(post_save, sender=User)
